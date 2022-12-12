@@ -1,4 +1,4 @@
-// Empty array for library
+// Declared an empty array for library
 let myLibrary = [];
 
 // Object Constructor
@@ -15,15 +15,23 @@ function Book(Title, Author, Pages, Read) {
 // Function for adding new book to array
 function addBookToLibrary(Title, Author, Pages, Read) {
     let book = new Book(Title, Author, Pages, Read);
-    myLibrary.push(book);    
+    myLibrary.push(book);
+    displayBooksOnPage(); 
 }
 
-// const theHobbit = new Book("The Hobbit", " by J.R.R Tolkien", "295 pages", "not read yet")
-// console.log(theHobbit.info());
+// const harryPotter = new Book("Hawy Potta", " by Just Kidding", "9999 pages", "read and watched")
+// console.log(harryPotter.info());
 
 // Function for displaying array to cards
 function displayBooksOnPage() {
     const books = document.querySelector(".books");
+
+    // Remove all previously displayed cards before looping over array again
+    const removeDivs = document.querySelectorAll(".card");
+    console.log("show me the node count of current card divs..", removeDivs);
+    for (let i = 0; i < removeDivs.length; i++) {
+        removeDivs[i].remove();
+    }
 
     // Loop over array and display to cards
     myLibrary.forEach(myLibrary => {
@@ -53,14 +61,52 @@ function displayBooksOnPage() {
     // }
 }
 
+// Start event listener/display form to add a new book to library
+const addBookButton = document.querySelector(".add-book-button");
+addBookButton.addEventListener("click", displayTheForm);
+
+function displayTheForm() {
+    document.getElementById("add-book-form").style.display = "";
+}
+
+// Start event listener/add input to array for new entry form
+const submitButton = document.querySelector(".submit-button");
+submitButton.addEventListener("click", intakeFormData);
+
+// Transform form data to variables for intake
+function intakeFormData() {
+    let Title = document.getElementById("Title").value;
+    let Author = document.getElementById("Author").value;
+    let Pages = document.getElementById("Pages").value;
+    let Read = document.getElementById("Read").value;
+
+    // Break out if form is incomplete or invalid
+    if ((Title == "") || (Author == "") || (Pages == "") || (Read == "")) {
+        return;
+    }
+    // Call function to input the book data to array
+    addBookToLibrary(Title, Author, Pages, Read);
+
+    // Reset the form after successful submission
+    document.getElementById("add-book").reset();
+}
+
+// Start event listener for clear form button
+const clearButton = document.querySelector(".reset-button");
+clearButton.addEventListener("click", clearForm);
+
+function clearForm() {
+    document.getElementById("add-book").reset();
+}
+
 // Calling function and adding data manually till form is built
-addBookToLibrary("Hawy Potta", "J.K.(JUST KIDDING)", "42069 Pages", "Injected as a Baby");
-addBookToLibrary("My Birthday Week Starts Tomorrow", "iPhone Notes", "Ironically Not 7 Pages, but 11", "Gimme Gimme Soon, I Can't Fall Asleep");
-addBookToLibrary("My Anime Story", "Me", "9999 Episodes", "Not Yet Aired");
-addBookToLibrary("Sword and Shield", "King", "20 Pages", "Read");
-addBookToLibrary("Bow and Arrow", "Hunter", "20 Pages", "Not Read yet");
-addBookToLibrary("Skyrim", "Bethesda", "Infinite", "Played");
+// addBookToLibrary("Hawy Potta", "J.K.(JUST KIDDING)", "42069 Pages", "Injected as a Baby");
+// addBookToLibrary("My Birthday Week Starts Tomorrow", "iPhone Notes", "Ironically Not 7 Pages, but 11", "Gimme Gimme Soon, I Can't Fall Asleep");
+// addBookToLibrary("My Anime Story", "Me", "9999 Episodes", "Not Yet Aired");
+// addBookToLibrary("Sword and Shield", "King", "20 Pages", "Read");
+// addBookToLibrary("Bow and Arrow", "Hunter", "20 Pages", "Not Read yet");
+// addBookToLibrary("Skyrim", "Bethesda", "Infinite", "Played");
 
-console.log("End of code array contents", myLibrary);
+// console.log("End of code array contents", myLibrary);
 
-displayBooksOnPage();
+// displayBooksOnPage();

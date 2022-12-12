@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS Library App</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
+    <title>JS Library App</title>
 </head>
 <body>
     <div class="container">
@@ -17,7 +17,21 @@
             <h1>Current Books In Library</h1>
         </div>
         <div class="form">
-            <p>Test Form Info</p>
+            <button class="add-book-button">Add New Book</button>
+            <div id="add-book-form" style="display:none">
+                <form id="add-book">
+                    <label for="Title">Title:</label>
+                    <input type="text" id="Title" name="Title">
+                    <label for="Author">Author:</label>
+                    <input type="text" id="Author" name="Author">
+                    <label for="Pages">Pages:</label>
+                    <input type="text" id="Pages" name="Pages">
+                    <label for="Read">Read:</label>
+                    <input type="text" id="Read" name="Read">
+                </form>
+                <button type="submit" class="submit-button">Submit To Library</button>
+                <button type="reset" class="reset-button">Reset Form</button>
+            </div>
         </div>
         <div class="books">
         </div>
