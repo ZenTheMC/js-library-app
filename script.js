@@ -7,20 +7,14 @@ function Book(Title, Author, Pages, Read) {
     this.Author = Author;
     this.Pages = Pages;
     this.Read = Read;
-    // this.info = function() {
-    //     return (title + author + ", " + pages + ", " + read);
-    //}
 }
 
-// Function for adding new book to array
+// Function for adding a new book to array/library
 function addBookToLibrary(Title, Author, Pages, Read) {
     let book = new Book(Title, Author, Pages, Read);
     myLibrary.push(book);
     displayBooksOnPage(); 
 }
-
-// const harryPotter = new Book("Hawy Potta", " by Just Kidding", "9999 pages", "read and watched")
-// console.log(harryPotter.info());
 
 // Function for displaying array to cards
 function displayBooksOnPage() {
@@ -40,7 +34,7 @@ function displayBooksOnPage() {
         card.classList.add("card");
         books.appendChild(card);
 
-        // Remove book button + add class attribute to each card
+        // Create remove book button and add class attribute to each array card
         const removeBookButton = document.createElement("button");
         removeBookButton.classList.add("remove-book-button");
         removeBookButton.textContent = "Remove From Library"
@@ -48,7 +42,6 @@ function displayBooksOnPage() {
 
         // Link the data attribute of the remove button to the array and card
         removeBookButton.dataset.linkedArray = index;
-        index++;
         console.log("show me the dataset link back to the array..", removeBookButton.dataset.linkedArray);
         card.appendChild(removeBookButton);
 
@@ -63,27 +56,46 @@ function displayBooksOnPage() {
             displayBooksOnPage();
         }
 
+        // Create read status button and add class attribute for each array card
+        const readStatusButton = document.createElement("button");
+        readStatusButton.classList.add("read-status-button");
+        readStatusButton.textContent = "Toggle Read Status";
+
+        // Link the data attribute of the toggle read button to the array and card
+        readStatusButton.dataset.linkedArray = index;
+        console.log("show me the dataset link back to the array FOR READ STATUS BUTTON..", readStatusButton.dataset.linkedArray);
+        card.appendChild(readStatusButton);
+
+        // Create event listener/toggle logic for array objects prototype for read status change
+        readStatusButton.addEventListener("click", toggleReadStatus);
+
+        function toggleReadStatus() {
+            let retrieveBookToToggle = readStatusButton.dataset.linkedArray;
+            Book.prototype = Object.create(Book.prototype);
+            const toggleBook = new Book();
+            console.log("What is the toggle initial value?..", myLibrary[parseInt(retrieveBookToToggle)].Read);
+
+            // Run check to see what read value is present to toggle from
+            if ((myLibrary[parseInt(retrieveBookToToggle)].Read) == "Yes") {
+                toggleBook.Read = "No";
+                myLibrary[parseInt(retrieveBookToToggle)].Read = toggleBook.Read;
+            } else if ((myLibrary[parseInt(retrieveBookToToggle)].Read) == "No") {
+                toggleBook.Read = "Yes";
+                myLibrary[parseInt(retrieveBookToToggle)].Read = toggleBook.Read;
+            }
+            displayBooksOnPage();
+        }
+
+        // Loop over the object keys and values and display to each card
         for (let key in myLibrarys) {
             console.log(`${key}: ${myLibrarys[key]}`);
             const para = document.createElement("p");
             para.textContent = (`${key}: ${myLibrarys[key]}`);
             card.appendChild(para);
         }
-    })
 
-    // for (let i = 0; i < myLibrary.length; i++) {
-    //     console.log("looping through", myLibrary[i]);
-    //     const card = document.createElement("div");
-    //     card.classList.add("card");
-    //     let arrayToString = JSON.stringify(myLibrary[i], null, 4);
-    //     console.log("trying to convert array to string...", arrayToString);
-    //     const para = document.createElement("p");
-    //     para.innerText = arrayToString;  // Safer to use than innerHTML and it's not injecting HTML
-    //                                     // It's just displaying string contents of a variable
-    //     // card.textContent = arrayToString;
-    //     books.appendChild(card);
-    //     card.appendChild(para);
-    // }
+    index++;
+    })
 }
 
 // Start event listener/display form to add a new book to library
@@ -123,15 +135,3 @@ clearButton.addEventListener("click", clearForm);
 function clearForm() {
     document.getElementById("add-book").reset();
 }
-
-// Calling function and adding data manually till form is built
-// addBookToLibrary("Hawy Potta", "J.K.(JUST KIDDING)", "42069 Pages", "Injected as a Baby");
-// addBookToLibrary("My Birthday Week Starts Tomorrow", "iPhone Notes", "Ironically Not 7 Pages, but 11", "Gimme Gimme Soon, I Can't Fall Asleep");
-// addBookToLibrary("My Anime Story", "Me", "9999 Episodes", "Not Yet Aired");
-// addBookToLibrary("Sword and Shield", "King", "20 Pages", "Read");
-// addBookToLibrary("Bow and Arrow", "Hunter", "20 Pages", "Not Read yet");
-// addBookToLibrary("Skyrim", "Bethesda", "Infinite", "Played");
-
-// console.log("End of code array contents", myLibrary);
-
-// displayBooksOnPage();
