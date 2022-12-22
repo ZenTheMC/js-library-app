@@ -2,11 +2,14 @@
 let myLibrary = [];
 
 // Object Constructor
-function Book(Title, Author, Pages, Read) {
-    this.Title = Title;
-    this.Author = Author;
-    this.Pages = Pages;
-    this.Read = Read;
+class Book {
+    constructor(Title, Author, Pages, Read) {
+        // Class Feature Branch Way
+        this.Title = Title;
+        this.Author = Author;
+        this.Pages = Pages;
+        this.Read = Read;
+    }
 }
 
 // Function for adding a new book to array/library
@@ -123,6 +126,7 @@ function intakeFormData() {
     }
     // Call function to input the book data to array
     addBookToLibrary(Title, Author, Pages, Read);
+    // lower case parameters
 
     // Reset the form after successful submission
     document.getElementById("add-book").reset();
