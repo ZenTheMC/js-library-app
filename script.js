@@ -139,3 +139,32 @@ clearButton.addEventListener("click", clearForm);
 function clearForm() {
     document.getElementById("add-book").reset();
 }
+
+// Constraint Validation API
+const constraintValidationAPI = (() => {
+    const titleCheck = document.getElementById("Title");
+
+    titleCheck.addEventListener("input", () => {
+        titleCheck.setCustomValidity("");
+        titleCheck.checkValidity();
+    });
+
+    titleCheck.addEventListener("invalid", () => {
+        if (titleCheck.value === "") {
+            titleCheck.setCustomValidity("You need to have a Title!");
+        }
+    });
+
+    const authorCheck = document.getElementById("Author");
+
+    authorCheck.addEventListener("input", () => {
+        authorCheck.setCustomValidity("");
+        authorCheck.checkValidity();
+    });
+
+    authorCheck.addEventListener("invalid", () => {
+        if (authorCheck.value === "") {
+            authorCheck.setCustomValidity("You need to have an Author!");
+        }
+    });
+})();
